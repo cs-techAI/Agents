@@ -5,10 +5,9 @@ from langchain_community.embeddings.openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import TextLoader
 
-# Load environment variables
+
 load_dotenv()
 
-# Load and process the document
 current_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(current_dir, "canada.txt")
 loader = TextLoader(file_path)
@@ -22,7 +21,7 @@ vector_store = FAISS.from_documents(docs, embeddings)
 
 retriever = vector_store.as_retriever(search_type="similarity", search_k=3)
 
-## Defining tools with Chain of Thought reasoning
+## tools with Chain of Thought reasoning (CoT)
 
 from langchain.tools import Tool
 
@@ -90,7 +89,7 @@ agent = initialize_agent(
     verbose=True
 )
 
-# Building agentic chatbot with CoT reasoning
+# building agentic chatbot - CoT reasoning
 def chatbot_agentic_rag():
     print("Agentic RAG chatbot with Chain of Thought is running! Type 'exit' to quit.")
 
@@ -107,6 +106,5 @@ def chatbot_agentic_rag():
         except Exception as e:
             print(f"Error: {e}")
 
-# Run the chatbot
 if __name__ == "__main__":
     chatbot_agentic_rag()
